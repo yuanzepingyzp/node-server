@@ -1,0 +1,32 @@
+var mysql  = require('mysql');  
+function addnewblog(){
+    var connection = mysql.createConnection({     
+        host     : 'localhost',       
+        user     : 'root',              
+        password : '',       
+        port: '3306',                   
+        database: 'blog', 
+    }); 
+ 
+    var newtitle = '"testtitle"';
+    var newcontent = '"testcontent"';
+    connection.connect();
+ 
+    var  sql = 'insert into articles (title, content) values ('+newtitle+','+newcontent+');';
+    console.log(sql);
+    //查
+    connection.query(sql,function (err, result) {
+        if(err){
+          console.log('[SELECT ERROR] - ',err.message);
+          return;
+        }
+ 
+       console.log('--------------------------SELECT----------------------------');
+       console.log(result);
+       console.log('------------------------------------------------------------\n\n');  
+    });
+ 
+    connection.end();
+}
+
+exports.addnewblog = addnewblog;
